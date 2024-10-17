@@ -1,61 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MahasiswaController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/mahasiswa/{nilai}', function ($nilai) {
-        $arrMahasiswa = ['Ruby Hoshino', "Yuki Asuna", "Shino Asada", "Alice Zuberg"];
-        $jurusan = "Teknik Informatika";
-        return view('universitas.mahasiswa', [
-            "mahasiswa" => $arrMahasiswa,
-            "jurusan" => $jurusan
-        ])->with('nilai', $nilai);
-    })->name('admin.mahasiswa');
+// Contoh untuk menggunakan Controller di route 
+// Route::get('/admin/mahasiswa', [MahasiswaController::class, 'index']);
 
-    Route::get('/dosen/{nama}', function ($nama) {
-        $arrDosen = ['Kayaba Akihiko', "Kikuoka Seijirou", "Nobuyuki Sugou", "Oberon"];
-        
-        $arrJurusanDosen = [
-            [
-                "nama" => "Kayaba Akihiko",
-                "jurusan" => "Teknik Informatika"
-            ],
-            [
-                "nama" => "Kikuoka Seijirou",
-                "jurusan" => "Sistem Informasi"
-            ],
-            [
-                "nama" => "Nobuyuki Sugou",
-                "jurusan" => "Teknik Informatika"
-            ],
-            [
-                "nama" => "Oberon",
-                "jurusan" => "Sistem Informasi"
-            ]
-        ];
-        
+Route::prefix('/admin')->group(function(){
+    Route::get('/mahasiswa/{nilai}', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
+    Route::get('/mhs/binus', [MahasiswaController::class, 'tampil']);
+
+    Route::get('/dosen/{dosen}', function($dosen){
+        $arrMahasiswa = ['Risa Lestari', 'Rudi Hermawan','Bambang Kusumo','Lisa Permata'];
         return view('universitas.dosen')
-        ->with('dosen', $arrDosen)
-        ->with("jurusan", $arrJurusanDosen)
-        ->with("nama", $nama);
+        ->with('daftarmahasiswa',$arrMahasiswa)
+        ->with('jur','Teknik Informatika')
+        ->with('dosen',$dosen);
     })->name('admin.dosen');
 
-
-    Route::get('/karyawan', function () {
+    Route::get('/karyawan', function(){
         return view('universitas.karyawan');
     })->name('admin.karyawan');
-
 });
 
-
-// Cara mengirim parameter ke view
-// 1. Argument kedua dari view
-// 2. Method with()
-
-// Cara mengatur layout Blade Laravel
-// 1. Include
-// 2. Session Extend
+//cara melempar data/value ke view , ada 2 cara:
+//1. Argument kedua dari view
+//2. Method with()

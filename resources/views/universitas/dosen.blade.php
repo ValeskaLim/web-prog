@@ -1,27 +1,19 @@
 @extends('layout.master')
 
-@section('contentLms')
-<?php echo "<h1>Dosen</h1>" ?>
+@section('kontenberita')
+<div class="row">
+    <div class="col-12">
+        <h1>Dosen : <?php echo $dosen?></h1>
+        <h2>Jurusan : <?php echo $jur; ?></h2>
 
+        <h3>Daftar Mahasiswa</h3>
         <ul>
-          <?php
-            foreach ($dosen as $dsn){
-              echo "<li>$dsn</li>";
-            }
-          ?>
+            <?php
+                foreach ($daftarmahasiswa as $nama) {
+                    echo "<li> $nama </li>";
+                }
+            ?>
         </ul>
-      
-        <ul>
-          <?php
-            foreach ($jurusan as $jur) {
-              echo "<li>$jur[nama] - $jur[jurusan]</li>";
-            }
-      
-            echo "<br>";
-            foreach ($jurusan as $jur) {
-              echo "<li>".$jur["nama"]."-".$jur["jurusan"]."</li>";
-            }
-          ?>
-        </ul>
-  
+    </div>
+</div>
 @endsection
