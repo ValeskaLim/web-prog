@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile', function (Blueprint $table) {
-            $table->id(); //Auto Increment & PK (int)
-            $table->string('name'); // Varchar 100
-            $table->string('email'); // Varchar 100
-            $table->bigInteger('nim')->unique(); // Big Integer
+        Schema::create('profil', function (Blueprint $table) {
+            $table->id(); // Field Autoincrement -Primary Key -integer
+            $table->bigInteger('nim')->unique();
+            $table->string('nama');
+            $table->string('email');
             $table->enum('jurusan', ['TI', 'SI', 'AK']);
             $table->text('alamat');
-            $table->timestamps(); // 2 Field created_at & updated_at (timestamp)
+            $table->timestamps(); // Field created_at dan updated_at
+
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profile');
+        Schema::dropIfExists('profil');
     }
 };

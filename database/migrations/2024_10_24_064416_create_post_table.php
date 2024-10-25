@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('profile', function (Blueprint $table) {
-            $table->string('no_hp', 11)->after('email');
+        Schema::create('post', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('body');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('table', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('post');
     }
 };
